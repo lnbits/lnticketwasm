@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "tables": {
+    "sources": {
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "wallet",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        },
+        {
+          "name": "deleted",
+          "type": "boolean"
+        }
+      ]
+    },
+    "attempts": {
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "wallet",
+          "type": "string"
+        },
+        {
+          "name": "source_id",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ]
+    },
+    "receipts": {
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "source_id",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    "deliveries": {
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "indexes": [
+    {
+      "table": "attempts",
+      "name": "attempts_source",
+      "field": "source_id"
+    },
+    {
+      "table": "receipts",
+      "name": "receipts_source",
+      "field": "source_id"
+    }
+  ]
+}

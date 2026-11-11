@@ -1,0 +1,90 @@
+/* The original extensions use Quasar cards, dense tables and top dialogs. */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./_lnbits/material-icons-v50.woff2') format('woff2');
+}
+body {
+  margin: 0;
+}
+#app {
+  padding: 16px;
+}
+.clone-dialog {
+  width: 500px;
+  max-width: calc(100vw - 32px);
+}
+.qr {
+  margin: auto;
+  padding: 16px;
+  width: fit-content;
+  max-width: 100%;
+  background: white;
+  border-radius: 4px;
+  line-height: 0;
+}
+.qr svg {
+  max-width: 100%;
+  height: auto;
+}
+.line-item {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+.break-all,
+.detail-value,
+.api-path {
+  overflow-wrap: anywhere;
+}
+.api-path {
+  display: block;
+  margin: 12px 0;
+  font-size: 12px;
+  white-space: normal;
+}
+.ticket-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.invoice-heading {
+  text-align: right;
+}
+#invoicePage .q-table th {
+  font-size: 1em;
+  font-weight: bold;
+}
+@media (max-width: 599px) {
+  #app {
+    padding: 12px;
+  }
+  .invoice-heading {
+    margin-top: 16px;
+    text-align: left;
+  }
+  .line-item {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+    padding: 8px;
+  }
+  .clone-dialog {
+    padding: 24px 16px;
+  }
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}

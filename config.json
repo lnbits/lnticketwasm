@@ -1,0 +1,220 @@
+{
+  "id": "lnticketwasm",
+  "name": "LNTicket WASM",
+  "short_description": "WASM clone of the LNTicket Python extension.",
+  "version": "0.1.0",
+  "min_lnbits_version": "1.7.1",
+  "extension_type": "wasm",
+  "wasm": {
+    "module": "wasm/module.wasm",
+    "wit": "wasm/lnbits-extension.wit",
+    "world": "extension",
+    "exports": [
+      {
+        "name": "list-wallets",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "list-currencies",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "list-sources",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "create-source",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "update-source",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "delete-source",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "get-public",
+        "visibility": "public"
+      },
+      {
+        "name": "create-payment",
+        "visibility": "public"
+      },
+      {
+        "name": "payment-status",
+        "visibility": "public"
+      },
+      {
+        "name": "list-records",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "delete-record",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "retry-webhook",
+        "visibility": "authenticated"
+      },
+      {
+        "name": "handle-invoice-paid",
+        "visibility": "event"
+      }
+    ]
+  },
+  "events": {
+    "onInvoicePaid": "handle-invoice-paid"
+  },
+  "ui_routes": [
+    {
+      "path": "/lnticketwasm",
+      "entrypoint": "ui/admin.html",
+      "auth": "user"
+    },
+    {
+      "path": "/lnticketwasm/{id}",
+      "entrypoint": "ui/public.html",
+      "auth": "public",
+      "path_params": {
+        "id": "id"
+      }
+    }
+  ],
+  "api_routes": [
+    {
+      "method": "GET",
+      "path": "/wallets",
+      "export": "list-wallets",
+      "auth": "user"
+    },
+    {
+      "method": "GET",
+      "path": "/currencies",
+      "export": "list-currencies",
+      "auth": "user"
+    },
+    {
+      "method": "GET",
+      "path": "/forms",
+      "export": "list-sources",
+      "auth": "user"
+    },
+    {
+      "method": "POST",
+      "path": "/forms",
+      "export": "create-source",
+      "auth": "user"
+    },
+    {
+      "method": "PUT",
+      "path": "/forms/{id}",
+      "export": "update-source",
+      "auth": "user",
+      "path_params": {
+        "id": "id"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/forms/{id}",
+      "export": "delete-source",
+      "auth": "user",
+      "path_params": {
+        "id": "id"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/public/{id}",
+      "export": "get-public",
+      "auth": "public",
+      "path_params": {
+        "id": "id"
+      },
+      "ownerContext": {
+        "table": "sources",
+        "idParam": "id"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/public/{id}/payments",
+      "export": "create-payment",
+      "auth": "public",
+      "path_params": {
+        "id": "id"
+      },
+      "ownerContext": {
+        "table": "sources",
+        "idParam": "id"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/payments/{attempt}",
+      "export": "payment-status",
+      "auth": "public",
+      "path_params": {
+        "attempt": "attempt"
+      },
+      "ownerContext": {
+        "table": "attempts",
+        "idParam": "attempt"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/records",
+      "export": "list-records",
+      "auth": "user"
+    },
+    {
+      "method": "DELETE",
+      "path": "/tickets/{id}",
+      "export": "delete-record",
+      "auth": "user",
+      "path_params": {
+        "id": "id"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tickets/{id}/webhook",
+      "export": "retry-webhook",
+      "auth": "user",
+      "path_params": {
+        "id": "id"
+      }
+    }
+  ],
+  "permissions": [
+    {
+      "id": "ext.storage.read",
+      "description": "Read this owner\u2019s extension records."
+    },
+    {
+      "id": "ext.storage.write",
+      "description": "Manage this owner\u2019s extension records."
+    },
+    {
+      "id": "wallet.list",
+      "description": "Choose an owned receiving wallet."
+    },
+    {
+      "id": "utils.basic",
+      "description": "Use invoice and currency utilities."
+    },
+    {
+      "id": "wallet.create_invoice_public",
+      "description": "Receive payments into the wallet bound to an extension payment attempt.",
+      "policies": [
+        {
+          "table": "attempts",
+          "wallet_field": "wallet"
+        }
+      ]
+    }
+  ]
+}

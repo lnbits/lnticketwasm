@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "description": "Create owner-scoped LNTicket records and immutable payment receipts.",
+  "operations": [
+    {
+      "op": "create_table",
+      "table": "sources",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "wallet",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        },
+        {
+          "name": "deleted",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "op": "create_table",
+      "table": "attempts",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "wallet",
+          "type": "string"
+        },
+        {
+          "name": "source_id",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "op": "create_table",
+      "table": "receipts",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "source_id",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "op": "create_table",
+      "table": "deliveries",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "data",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "op": "create_index",
+      "table": "attempts",
+      "name": "attempts_source",
+      "field": "source_id"
+    },
+    {
+      "op": "create_index",
+      "table": "receipts",
+      "name": "receipts_source",
+      "field": "source_id"
+    }
+  ]
+}
